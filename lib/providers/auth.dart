@@ -31,7 +31,6 @@ class Auth extends ChangeNotifier {
   ///return null the user sign-in with Google.
   ///otherwise a message with the error will be returned.
   Future signInWithGoogle() async {
-    print("first step");
     //Prevent google sign-in from automatically sign-in with a default account.
     _googleSignIn.signOut();
 
@@ -45,7 +44,6 @@ class Auth extends ChangeNotifier {
       ;
 
       final googleAuth = await googleUser.authentication;
-      print("success!!");
       print(googleUser.displayName);
       await _firebaseAuth.signInWithCredential(
         GoogleAuthProvider.credential(
@@ -53,7 +51,6 @@ class Auth extends ChangeNotifier {
           idToken: googleAuth.idToken,
         ),
       );
-      print("double success!");
       return;
     } catch (e) {
       print(e.toString());

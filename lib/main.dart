@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:palpipatrol/providers/auth.dart';
+import 'package:palpipatrol/providers/foods.dart';
 
 import 'package:palpipatrol/screens/front_screen.dart';
 import 'package:provider/provider.dart';
@@ -19,6 +20,9 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider.value(
           value: Auth(),
+        ),
+        ChangeNotifierProvider.value(
+          value: Foods(),
         ),
       ],
       child: Consumer<Auth>(

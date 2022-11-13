@@ -31,13 +31,17 @@ class _MealBuilderState extends State<MealBuilder> {
     _controller = TextfieldTagsController();
   }
 
-  void onPressed() {}
+  void onPressed() {
+    setState(() {
+      ingredients = _controller.getTags as List<String>;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Card(
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Text("What didi you have for lunch?"),
+        Text("What did u have for lunch?"),
         TextFieldTags(
           textSeparators: const [','],
           textfieldTagsController: _controller,
@@ -110,6 +114,7 @@ class _MealBuilderState extends State<MealBuilder> {
                                             Color.fromARGB(255, 233, 233, 233),
                                       ),
                                       onTap: () {
+                                        // TODO: delete
                                         onTagDelete(tag);
                                       },
                                     )
@@ -120,14 +125,8 @@ class _MealBuilderState extends State<MealBuilder> {
                           )
                         : null,
                   ),
-                  onChanged: (String input) {
-                    print("pop");
-                    onChanged!(input);
-                  },
-                  onSubmitted: (String input) {
-                    print(input);
-                    onSubmitted!(input);
-                  },
+                  onChanged: onChanged,
+                  onSubmitted: onSubmitted,
                 ),
               );
             });
@@ -136,7 +135,9 @@ class _MealBuilderState extends State<MealBuilder> {
         TextButton(
           onPressed: onPressed, 
           child: Text("Submit"),
-          onHover: ,)
+          // onHover: ,
+          ),
+        Text(ingredients.toString())
       ]),
     );
   }
