@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:palpipatrol/providers/foods.dart';
+import 'package:palpipatrol/screens/front_screen_widgets/orange_checker.dart';
+import 'package:palpipatrol/widgets/app_drawer.dart';
 import 'package:provider/provider.dart';
 import 'package:palpipatrol/providers/auth.dart';
 import 'package:shared_preferences_android/shared_preferences_android.dart';
@@ -12,14 +14,31 @@ import 'front_screen_widgets/meal_builder.dart';
 
 class FrontScreen extends StatefulWidget {
   const FrontScreen({Key? key}) : super(key: key);
+  static const routeName = '/';
 
   @override
   State<FrontScreen> createState() => _FrontScreenState();
 }
 
 class _FrontScreenState extends State<FrontScreen> {
-  final db = FirebaseFirestore.instance;
-  var food = "some stuff";
+  var _isInit = true;
+  var _isLoading = false;
+
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+      setState(() {
+        _isLoading = true;
+      });
+      Provider.of<Foods>(context).getFoods().then((_) {
+        setState(() {
+          _isLoading = false;
+        });
+      });
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,51 +66,25 @@ class _FrontScreenState extends State<FrontScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Boooyaaa'),
-        leading: IconButton(
-          icon: Icon(Icons.logout),
-          onPressed:() {
-            // Navigator.of(context).pop();
-              // Navigator.of(context).pushReplacementNamed('/');
-              
-              // Navigator.of(context)
-              //     .pushReplacementNamed(UserProductsScreen.routeName);
-              Provider.of<Auth>(context, listen: false).signOut();
-          },
-        ),
+        title: Text('PalpiPatrol'),
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          height: deviceSize.height,
-          width: deviceSize.width,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              MealBuilder(),
-              FutureBuilder(
-                  future: Provider.of<Foods>(context, listen: false).getFoods(),
-                  builder: (ctx, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      return Consumer<Foods>(
-                        builder: (ctx, foodData, child) => ListView.builder(
-                          scrollDirection: Axis.vertical,
-                          shrinkWrap: true,
-                          itemCount: foodData.foods.length,
-                          itemBuilder: (ctx, i) => Text(foodData.foods[i].name),
-                        ),
-                      );
-                      // return Text("Woopla");
-                    } else {
-                      print(
-                          "snapshot.connectionState == ${snapshot.connectionState}");
-                      return Text("Too bad, sucker");
-                    }
-                  })
-            ],
-          ),
-        ),
-      ),
+      drawer: AppDrawer(),
+      body: _isLoading
+          ? Text("wait...")// TODO : shows only this
+          : SingleChildScrollView(
+              child: Container(
+                height: deviceSize.height,
+                width: deviceSize.width,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    MealBuilder(),
+                    OrangeChecker(),
+                  ],
+                ),
+              ),
+            ),
     );
   }
 }

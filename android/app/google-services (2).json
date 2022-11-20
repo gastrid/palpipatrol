@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "762448730547",
+    "project_id": "palpipatrol",
+    "storage_bucket": "palpipatrol.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:762448730547:android:6647091f0ad2eb0e9893c6",
+        "android_client_info": {
+          "package_name": "com.example.palpipatrol"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "762448730547-q4ha0k136967npp797lkfm7p30s0ltq1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.palpipatrol",
+            "certificate_hash": "5d1fa7f8a0d7ca34acc2e32757b9e940f5a58519"
+          }
+        },
+        {
+          "client_id": "762448730547-6j2pj5ffj3seqg2d2pne80cu2h790r16.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQWFtHsppELtxc-b5obhyy382yi3mgcPo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "762448730547-6j2pj5ffj3seqg2d2pne80cu2h790r16.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "762448730547-brbldgd4ncqgd8s9c7r5df0b23gp0gsr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.palpipatrol"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
