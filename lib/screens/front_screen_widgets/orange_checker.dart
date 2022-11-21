@@ -14,8 +14,9 @@ class OrangeChecker extends StatefulWidget {
 class _OrangeCheckerState extends State<OrangeChecker> {
   void updateFood(int index) {
     final foods_provider = Provider.of<Foods>(context, listen: false);
-    foods_provider.turn_food_green(index);
-    print("Food updated: ${foods_provider.foods[index].name}");
+    final id = foods_provider.orange_foods[index].id;
+    if (id != null) foods_provider.turn_food_green(id);
+    print("Food updated: ${foods_provider.orange_foods[index].name}");
   }
 
   @override
@@ -23,14 +24,13 @@ class _OrangeCheckerState extends State<OrangeChecker> {
     // TODO: could potentially delete this as we've got Consumer
     var orange_foods = Provider.of<Foods>(context).orange_foods;
     return Container(
-      height: 200,
       child: Column(children: [
         Text(
           "Orange foods",
           style: TextStyle(color: Colors.orange, fontWeight: FontWeight.bold),
         ),
         Text("Press to turn green"),
-        Expanded(child: Consumer<Foods>(builder: (ctx, foodData, child) {
+        Consumer<Foods>(builder: (ctx, foodData, child) {
           return Wrap(
             children: List.generate(
                 foodData.orange_foods.length,
@@ -59,7 +59,7 @@ class _OrangeCheckerState extends State<OrangeChecker> {
                       }),
                       )),
           );
-        }))
+        })
       ]),
     );
   }

@@ -17,13 +17,12 @@ class _GreenListState extends State<GreenList> {
   Widget build(BuildContext context) {
     // TODO: could potentially delete this as we've got Consumer
     return Container(
-      height: 200,
       child: Column(children: [
         Text(
           "Green foods",
           style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
         ),
-        Expanded(child: Consumer<Foods>(builder: (ctx, foodData, child) {
+Consumer<Foods>(builder: (ctx, foodData, child) {
           return Wrap(
             children: List.generate(
                 foodData.green_foods.length,
@@ -33,7 +32,7 @@ class _GreenListState extends State<GreenList> {
                       backgroundColor: Colors.green,
                       )),
           );
-        }))
+        })
       ]),
     );
   }

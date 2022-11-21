@@ -41,7 +41,6 @@ class Foods with ChangeNotifier {
               name: body["name"],
               score: body["score"],
             ));
-            print(body);
           }),
           onError: (e) => print("Error completing: $e"),
         ).then((value) {
@@ -98,10 +97,12 @@ class Foods with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> turn_food_green(int index) async {
-    print("food id: ${_foods[index].id}");
-    final doc = db.collection('foods').doc(_foods[index].id);
+  Future<void> turn_food_green(String id) async {
+    print("food id: ${id}");
+    print("food name: ${_foods.firstWhere((element) => element.id == id)}");
+    final doc = db.collection('foods').doc(id);
     doc.update({"colour": "green", "score": 0}).then((value) {
+      final index = _foods.indexWhere((element) => element.id == id);
       _foods[index] = Food(
         id: _foods[index].id,
         name: _foods[index].name,
