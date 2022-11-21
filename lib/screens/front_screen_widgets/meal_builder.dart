@@ -41,8 +41,9 @@ class _MealBuilderState extends State<MealBuilder> {
       textFocusNode.unfocus();
       final tags = _controller.getTags as List<String>;
       var food_provider = Provider.of<Foods>(context, listen: false);
-      food_provider.updateFoods(tags);
-      _controller.getTags!.clear();
+      food_provider.updateFoods(tags).then((value) => 
+        _controller.clearTags()
+      );
     });
   }
 

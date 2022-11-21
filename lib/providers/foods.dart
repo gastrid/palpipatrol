@@ -17,6 +17,14 @@ class Foods with ChangeNotifier {
     return _foods.where((element) => element.colour == "orange").toList();
   }
 
+  List<Food> get green_foods {
+    return _foods.where((element) => element.colour == "green").toList();
+  }
+
+  List<Food> get red_foods {
+    return _foods.where((element) => element.colour == "red").toList();
+  }
+
   // void initState() {
   //   collection = 
   // }
@@ -77,7 +85,11 @@ class Foods with ChangeNotifier {
 
     _foods.forEach((food) async {
       if (food.id == null) {
-        await collection.add(food);
+        await collection.add(food).then((value) {
+          final id = value.id;
+          print("id: ${id}");
+          food.id = id;
+        });
       } else {
         await collection.doc(food.id).update(food.toFirestore());
       }
@@ -87,6 +99,7 @@ class Foods with ChangeNotifier {
   }
 
   Future<void> turn_food_green(int index) async {
+    print("food id: ${_foods[index].id}");
     final doc = db.collection('foods').doc(_foods[index].id);
     doc.update({"colour": "green", "score": 0}).then((value) {
       _foods[index] = Food(

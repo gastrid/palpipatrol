@@ -4,59 +4,33 @@ import 'package:flutter/material.dart';
 import 'package:palpipatrol/providers/foods.dart';
 import 'package:provider/provider.dart';
 
-class OrangeChecker extends StatefulWidget {
-  const OrangeChecker({Key? key}) : super(key: key);
+class GreenList extends StatefulWidget {
+  const GreenList({Key? key}) : super(key: key);
 
   @override
-  _OrangeCheckerState createState() => _OrangeCheckerState();
+  _GreenListState createState() => _GreenListState();
 }
 
-class _OrangeCheckerState extends State<OrangeChecker> {
-  void updateFood(int index) {
-    final foods_provider = Provider.of<Foods>(context, listen: false);
-    foods_provider.turn_food_green(index);
-    print("Food updated: ${foods_provider.foods[index].name}");
-  }
+class _GreenListState extends State<GreenList> {
 
   @override
   Widget build(BuildContext context) {
     // TODO: could potentially delete this as we've got Consumer
-    var orange_foods = Provider.of<Foods>(context).orange_foods;
     return Container(
       height: 200,
       child: Column(children: [
         Text(
-          "Orange foods",
-          style: TextStyle(color: Colors.orange, fontWeight: FontWeight.bold),
+          "Green foods",
+          style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
         ),
-        Text("Press to turn green"),
         Expanded(child: Consumer<Foods>(builder: (ctx, foodData, child) {
           return Wrap(
             children: List.generate(
-                foodData.orange_foods.length,
+                foodData.green_foods.length,
                 (index) =>
                     Chip(
-                      label: Text(foodData.orange_foods[index].name),
-                      deleteIcon: Icon(Icons.check),
-                      backgroundColor: Colors.orange,
-                      deleteIconColor: Colors.grey,
-                      onDeleted: (() {
-                        showDialog(context: context, builder: (ctx) => 
-                            AlertDialog(
-                              title: Text("Confirm action"),
-                              content: Text("Turn '${foodData.orange_foods[index].name}' green?"),
-                              actions: <Widget>[
-                                TextButton(onPressed: () {
-                                  Navigator.of(context).pop();
-                                }, child: Text("Cancel")),
-                                TextButton(onPressed: () {
-                                  updateFood(index);
-                                  Navigator.of(context).pop();
-                                }, child: Text("Ok")),
-                              ],
-                            )
-                          );
-                      }),
+                      label: Text(foodData.green_foods[index].name),
+                      backgroundColor: Colors.green,
                       )),
           );
         }))
@@ -70,7 +44,7 @@ class _OrangeCheckerState extends State<OrangeChecker> {
 //                           showDialog(context: context, builder: (ctx) => 
 //                             AlertDialog(
 //                               title: Text("Confirm action"),
-//                               content: Text("Turn '${foodData.orange_foods[i].name}' green?"),
+//                               content: Text("Turn '${foodData.green_foods[i].name}' green?"),
 //                               actions: <Widget>[
 //                                 TextButton(onPressed: () {
 //                                   Navigator.of(context).pop();
@@ -84,7 +58,7 @@ class _OrangeCheckerState extends State<OrangeChecker> {
 //                           );
 //                         },
 //                       child: TextButton(
-//                         child: Text(foodData.orange_foods[i].name),
+//                         child: Text(foodData.green_foods[i].name),
 //                         style: ButtonStyle(
 //                           backgroundColor: MaterialStateProperty.all<Color>(Colors.orange),
 //                           shape: MaterialStateProperty.all(RoundedRectangleBorder(

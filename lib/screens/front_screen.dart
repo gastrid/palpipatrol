@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:palpipatrol/providers/foods.dart';
+import 'package:palpipatrol/screens/front_screen_widgets/green_list.dart';
 import 'package:palpipatrol/screens/front_screen_widgets/orange_checker.dart';
+import 'package:palpipatrol/screens/front_screen_widgets/red_list.dart';
 import 'package:palpipatrol/widgets/app_drawer.dart';
 import 'package:provider/provider.dart';
 import 'package:palpipatrol/providers/auth.dart';
@@ -73,7 +75,6 @@ class _FrontScreenState extends State<FrontScreen> {
           ? Text("wait...")// TODO : shows only this
           : SingleChildScrollView(
               child: Container(
-                height: deviceSize.height,
                 width: deviceSize.width,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -81,6 +82,8 @@ class _FrontScreenState extends State<FrontScreen> {
                   children: <Widget>[
                     MealBuilder(),
                     OrangeChecker(),
+                    GreenList(),
+                    RedList()
                   ],
                 ),
               ),

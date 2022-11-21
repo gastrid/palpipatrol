@@ -2,10 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 
 class Food {
-  final String? id;
-  final String name;
-  final String colour;
-  final int score;
+  String? id;
+  String name;
+  String colour;
+  int score;
 
   Food({
     this.id,
